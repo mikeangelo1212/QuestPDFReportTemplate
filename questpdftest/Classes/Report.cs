@@ -66,7 +66,18 @@ public class Report : IDocument
             column.Spacing(5);
             column.Item().Element(ComposeTable);
 
-            
+
+
+            if (_reportData.VerifyTotalColumn())
+            {
+                double _totalPrice=0.0;
+                for (int i = 1; i < _reportData.ColumnsAndRows.Count; i++)
+                {
+                    _totalPrice+=Convert.ToDouble(_reportData.ColumnsAndRows.ElementAt(i).ElementAt(_reportData.TotalColumn.Value));
+                    
+                }    
+                column.Item().AlignRight().Text($"Grand total: {_totalPrice}$").FontSize(14);
+            }
 
             if (!string.IsNullOrWhiteSpace(_reportData.Comments))
                     column.Item().PaddingTop(25).Element(ComposeComments);
