@@ -16,16 +16,23 @@ public class ReportData
     public bool VerifyTotalColumn()
     {
         
-        if (!this.HasTotal || this.TotalColumn is null)
+        if (!HasTotal || TotalColumn is null)
                 return false;
 
-            int colIndex = this.TotalColumn.Value;
+        int colIndex = TotalColumn.Value;
+    
+        string value = ColumnsAndRows
+            .ElementAt(1)
+            .ElementAt(colIndex);
         
-            string value = ColumnsAndRows
-                .ElementAt(0)
-                .ElementAt(colIndex);
-        //verify if it can be summed up as double for display of a total value
-        return true;
+        double price;
+        bool isDouble = Double.TryParse(value, out price);
+        
+        if(isDouble) return true;
+        else return false;
+
+
+
 
     }
 }
